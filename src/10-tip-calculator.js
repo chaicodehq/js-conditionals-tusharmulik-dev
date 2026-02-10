@@ -31,4 +31,34 @@
  */
 export function calculateTip(billAmount, serviceRating) {
   // Your code here
+
+ 
+  // 1. Validation Guard Clause
+  if (billAmount <= 0 || !Number.isInteger(serviceRating) || serviceRating < 1 || serviceRating > 5) {
+    return null;
+  }
+
+  // 2. Map Service Rating to Percentage
+  const ratingToPercent = {
+    1: 5,
+    2: 10,
+    3: 15,
+    4: 20,
+    5: 25
+  };
+
+  const tipPercentage = ratingToPercent[serviceRating];
+
+  // 3. Perform Calculations
+  // We use Number() because .toFixed() returns a string
+  const tipAmount = Number((billAmount * (tipPercentage / 100)).toFixed(2));
+  const totalAmount = Number((billAmount + tipAmount).toFixed(2));
+
+  // 4. Return the Result Object
+  return {
+    tipPercentage,
+    tipAmount,
+    totalAmount
+  };
 }
+
